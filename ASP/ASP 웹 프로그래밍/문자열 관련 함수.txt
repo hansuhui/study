@@ -1,0 +1,53 @@
+FormatCurrency : 통화 형식으로 문자을 보여준다 (\7,000)
+
+FarmatDatetime(Date,1) : 2016년 3월 26일 금요일
+FarmatDatetime(Date,2) : 2016-03-26
+FarmatDatetime(Date,3) : 오전 12:00:00
+FarmatDatetime(Date,4) : 00:00
+
+Dim Strs
+Strs ="Test"
+
+Instr(Strs,"e") : indexOf 라고보면된다
+
+InstrRev(Strs,"e") : indexOf 인데 뒤부터 찾는거
+
+
+문자열 잘라내기
+
+left(Strs,10) : 왼쪽에서 10까지 자른다
+
+right(Strs,10) : 오른쪽에서 10까지 자른다
+
+Lcase(Strs) : 소문자 변환
+
+ucase(Strs) : 대문자 변환
+
+
+문자열 길이
+
+Len(Strs) : 길이 반환
+
+문자열 뽑아 내기
+
+Mid(Strs,1,1) : 지정위치부터 지정길이 만큼 뽑아온다
+
+문자열 공백
+
+Trim(Strs) : 공백제거
+
+RTrim(Strs) : 오른쪽 공백제거
+
+LTrim(Strs) : 왼쪽 공백제거
+
+
+문자 변경
+
+Replace(Strs,"st","xt") : 해당 문자를 원하는 값으로 변환 한다.
+
+Split(Strs,'e') : 문자열 자르기
+
+StrReverse(Strs) : 문자열 뒤집기
+
+
+

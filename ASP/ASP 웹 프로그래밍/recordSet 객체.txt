@@ -1,0 +1,106 @@
+[recordSet 객체]
+
+웹에서 데이터베이스와 관련하여 다루어지는 대부분의 작업은 SQL문을 실행하고 그 결과를
+레코드셋 형태로 가져와서 웹상에 출력하는 것이다. RecordSet은 문자 그대로 레코드의 모임이라고
+생각하면 된다. 이 RecordSet 객체는 SQL 문을 실행하여 실제 데이터 베이스의 데이터를
+다루는데 사용되며 자주 이용되는 객체이다.
+
+1)Connection 객체를 이용하여 RecoredSet 얻기
+
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.Open "DSN"
+Set Rs = DB.Execite "Select * from ebTable"
+
+
+2 ) Command 객체를 이용하여 RecordSet 얻기
+
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.ActiveConnection = "DSN"
+DB.CommandText = "select * from ebTable"
+DB.CommandType = adshText
+Set Rs = DB.Execute
+
+
+3) RecordSet 객체 이용
+
+Set Rs = Server.CreateObject("ADODB.Connection")
+Rs.ActiveConnection = "DSN"
+Rs.Source = "Select * from ebTable"
+Rs.Options = adshText
+Rs.Open
+Rs.Close
+
+
+
+4) Open 메소드 이용하여 레코드셋 얻기
+
+Set Rs = Server.CreateObject("ADODB.Connection")
+Rs.Open
+Rs.ActiveConnection = "DSN"
+Rs.Source = "Select * from ebTable"
+Rs.Options = adshText
+
+5) 자주 사용하는 방법
+
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.Open "DSN"
+Set Rs = Server.CreateObject("ADODB.RecordSet")
+Str = "Select * from ebTable"
+Rs.Open str,DB
+
+
+
+[속성]
+
+AbsolutePage  :  현재 레코드가 위치한 절대 페이지 표시
+
+AbsolutePosition  :  현재 레코드의 절대 위치 표시
+
+ActiveConnection : 레코드 셋이 속한 연결 객체 표시
+
+BOF : 현재 레코드 위치가 첫 번째 레코드 전에 존재하면 참
+
+EOF : 현제 레코드 위치가 마지막 레코드 뒤에 존재하면 참
+
+CursorType : 레도트셋에 사용하는 커서타입을 나타냄
+
+LockType : 데이터를 열 때 적용할 Lock 유형 설정
+
+PageSize : 페이지가 가지고 있는 레코드의 수를 나타냄
+
+PageCount : 레코드셋에 있는 레코드의 수를 나타냄
+
+RecordCount : 현재 레코드셋에 있는 레코드의 수를 나타냄
+
+
+[메소드]
+
+Open :  레코드셋에 커서열기
+
+Close : 열린 레코드셋과 관련된 객체 닫기
+
+Support : 레코드셋에서 어떤 함수를 지원하는가를 결정
+
+AddNew : 수정 가능한 레코드셋에서 새로운 레코드 추가
+
+Delect :  열린 레코드셋에서 현재 레코드 삭제
+
+Update : 현재 레코드셋에서 기존 데이터 레코드를 수정
+
+Move : 레코드 위치를 지정한 레코드로 이동
+
+MoveFisrt :  열린 레코드셋에서 처음 레코드로 이동
+
+MoveLast :  열린 레코드셋에서 마지막 레코드로 이동
+
+MoveNext : 열렌 레코드셋에서 다음 레코드로 이동
+
+MovePrevious : 열린 레코드셋에서 이전 레코드로 이동
+
+
+
+
+
+
+
+

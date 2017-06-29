@@ -1,0 +1,60 @@
+서브 타입 / 표현 값 (범위)
+
+Byte / 정수 (1~255)   - 1byte(8bit)
+
+Boolean / True 또는 False
+
+Currency  / 화폐 (-922,337,203,685,477.5808 ~  922,337,203,685,477.5807)
+
+Date / 날짜 및 시간
+
+Double / 실수 (음수 : - 1.79769313486232E308 ~ -4.94065645841247E-657
+		양수 : 4.94065645841247E-324 ~ 1.79769313486232E308)
+
+Empty / 사용되기 전의 변형체가 가지는 값(초기화되지 않은 변수 값)
+
+
+Error / 오류 번호
+
+Integer / 정수 (-32,768 ~  32,767)  - 4byte(32bit)
+
+Long / 정수 (-2,147,483,648 ~ 2,147,483,647)  - 8byte(64bit)
+
+Object / 객체
+
+Null / 무효한 데이터 
+
+Single / 실수 (음수 :  -3.402823E38 ~ -1.401298E-45
+		양수 : 1.401298E-45 ~ 3.402823E38)
+
+String / 문자열
+
+
+[서브타입별 접두어]
+
+
+서브타입 / 접두어 / 사용예
+
+Byte / byt / bytNumber ,bytNo
+
+Boolean / bln / blnPassed , blnYesNo
+
+Data / dat / datToday ,datAfter
+
+Time / dtm / dtmFrequency, dtmTm
+
+Double / dbl / dblAverage , dblTot
+
+Error / err / errRange , errCode
+
+Integer / int / intSeqNo, IntNumber
+
+Long / lng / lngPrecision , lngReal
+
+Object / obj / objVehicle , objComputer
+
+Single / sng / sngSum , sngTotal
+
+String / str / strMajor, strName
+
+

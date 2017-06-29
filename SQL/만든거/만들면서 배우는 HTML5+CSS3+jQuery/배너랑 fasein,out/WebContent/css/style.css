@@ -1,0 +1,26 @@
+@CHARSET "EUC-KR";
+
+body
+{
+	font-size:75%;
+	font-family:돋움,Dotum, Sans-Serief;
+	line-height:1.5;
+	/*경로 설정시 
+	[../] 는 현재 폴더에서 벗어날때
+	[./] 현재 폴더 내부에 있는 파일에 접근하고 싶을때
+	  */
+	background-image: url('../images/bg.jpg');
+	background-size:cover;
+	color:#ececec;
+	
+}
+ h1,h2/*선택자 그룹핑  */
+{
+	/*#RRGGBB 각 자리 정보  앞으 2자리는 RED, 가운데 2자리는 Green ,
+	 마지막 2자리는 blue 의 색상정보를 가지고 있음 
+	 값이 0 에 가까울수록 검은색에 가까운색이, f에 가까울수록 횐색에 가까운 색이 표현됩니다.
+	 예 #000000 검은색 , #ffffff 흰색 , #808080은 중간 회색
+	  */
+	color:#808080;
+	
+}

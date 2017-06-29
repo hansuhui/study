@@ -1,0 +1,37 @@
+함수 / 의미
+
+Now() / 현재의 일자 및 시각을 반환
+
+Date() / 현재의 시스템 날짜를 반환
+
+Day(Date()) / 해당 월의 일(Day)을 반환
+
+Month(Date()) / 월(Month)을 반환
+
+Year(Date()) / 연(Year)을 반환
+
+DateSerial(yy,mm,dd) / yyyy-mm-dd 형태로 날짜 반환
+
+DateValue(String) / Date 서브타입을 반환
+
+Weekday(Date()) / 요일을 숫자형태로 반환(일:1..토:7)
+
+Time() / 현재의 시스템 시각을 반환
+
+Hour(Time()) / 시(Hour)를 반환
+
+Minute(Time()) / 분(Minute)을 반환
+
+Second(Time()) / 초(Second)를 반환
+
+TimeSerial(hr,min,sec) / 오전(오후) HH:MM:SS 형태로 반환
+
+TimeValue(String) / Time 서브타입을 반환
+
+FormatDateTime(NOow(),integer) / 다양한 형태의 날짜 및 시간 반환
+
+DateAdd(Types ,Integer , 날짜) / 날짜를 Types 형태로 Integer 만큼 더하기
+
+
+
+

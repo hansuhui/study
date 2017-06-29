@@ -1,0 +1,49 @@
+Request가 사용자 정보를 서버로 가져오는 작업을 한다면 Response는 서버에서 사용자에게로
+돌려주는 역할을 한다. 그러므로 Request 및 Response 객체는 상호 단짝이라고 할 수 있다.
+이 Response 개체는 정보를 가공하여 웹브라우저에 전송, 다른 URL로 웹 브라우저의 위치를 변경, 
+클라이언트의 쿠키값 설정 등을 수행한다.
+
+[Response 객체의 역할]
+
+
+Cookies (컬렉션) : 사용자의 브라우저에서 보낸 쿠키값 설정
+
+[속성]
+
+Buffer : 페이지의 버퍼완료 여부 (true/false)
+
+Expires : 브라우저에서 캐쉬가 소멸되지 전의 시간
+
+ContentType : HTTP의 컨텐트 타입 (ex: Text/HTML)
+
+ExpiresAbsolute : 캐쉬된 페이지의 소멸될 날짜 시간
+
+Status : 서버에서 리턴한 HTTP의 상태바의 값
+
+cachecontrol : Proxy Server의 ASP에 의해서 만들어진 결과 캐쉬 여부
+
+charset : 컨텐트 헤더에 문자세트 덧붙임
+
+isclientcpnnected : 사용자가 서버에 연결 중인지 여부
+
+[메소드]
+
+AddHeader : HTML 헤더에 추가. 수정
+
+AppendToLog :  서버의 Log에 텍스트를 추가하게 함
+
+Claer : 버퍼링된 HTML의 내용 삭제
+
+End : 페이지 처리를 중단하고 현재의 결과를 리턴
+
+Flush : 버퍼링 결과를 바로 리턴
+
+Write : 화면에 변수나 문자열 출력
+
+BinaryWrite : 텍스트를 브라우저에 캐릭터 셋없이 출력
+
+Redirest : URL의 이동
+
+
+
+

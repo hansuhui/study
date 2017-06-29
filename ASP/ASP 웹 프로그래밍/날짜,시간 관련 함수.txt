@@ -1,0 +1,32 @@
+Hour(now) : 시
+
+Minute(now) : 분
+
+Second(now) : 초
+
+Year(now) : 년
+
+Month(now) : 월
+
+Day(now) : 일
+
+WeekDay(now) : 요일 (1:일요일... 7:토요일)
+
+date : 일자 (2016-03-25)
+
+Time : 시간 (오후 6:38:54)
+
+
+[Date 관련 함수의 종류]
+
+DateAdd : 지정된 시간 간격을 추가한 날짜를 되도렬 줌
+
+DateDiff : 두 날짜 사이의 일, 주 및 년도의 숫자를 되돌려 줌
+
+DatePart :  주어진 날짜의 일, 월 , 년도를 되돌려 줌
+
+DateSerial : 지정된 년, 월, 일에 대한 date 형식의 값을 되돌려 줌
+
+DateValue : Date 형식의 값을 되돌려줌
+
+

@@ -1,0 +1,69 @@
+함수 / 기능
+
+CBool(식) / 식을 Boolean 서브타입으로 변환
+
+CByte(식) / 식을 Byte 서브타입으로 변환
+
+CDate(식) / 식을 Date 서브타입으로 변환
+
+CDbl(식) / 식을 Double 서브타입으로 변환
+
+CInt(식) / 식을 Integer 서브타입으로 변환
+
+CLng(식) / 식을 Long 서브타입으로 변환
+
+CSng(식) / 식을 Single 서브타입으로 변환
+
+CStr(식) / 식을 String 서브타입으로 변환
+
+Chr(charcode) / ANSI 코드를 문자로 변환
+
+Asc(문자열) / 문자열에서 첫 글자에 해당하는 ANSI 코드로 반환
+
+DateValue(날짜) / Date 서브타입으로 지정된 값을 숫자로 반환
+
+TypeName(변수명) / 데이터가 어떤 서브타입인지 확인하는 메서드
+
+VarType(변수명) / 해당 변수의 서브타입을 상수에 대응되는 정수 값으로 반환해 주는 함수 이다.
+
+[varType 함수의 반환값과 의미]
+
+값 / 상수 / 서브타입
+
+0 / vbEmpty / Empty
+
+1 / vbNull / Null
+
+2 / vbInteger  / Integer
+
+3 / vbLong / Long
+
+4 / vbSingle / Real(Single-precision)
+
+5 / vbDouble / Real(Single-precision)
+
+6 / vbCurrency / Currency
+
+7 / vbDate / Date
+
+8 / vbString / String
+
+9 / vbObject / Object
+
+10 / vbError / Error
+
+11 / vbBoolean / Boolean
+
+12 / vbVariant / Variant(변형체 배열)
+
+13 / vbDataObject / 데이터 객체
+
+17 / vbByte / Byte
+
+8192 / vbArray / Array
+
+
+
+
+
+

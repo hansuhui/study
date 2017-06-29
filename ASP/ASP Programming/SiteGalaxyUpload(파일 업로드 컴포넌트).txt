@@ -1,0 +1,92 @@
+
+[SiteGalaxyUpload 컴포넌트]
+
+1.필요성
+
+파일업로드 관련 컴포넌트는 많이 있다. 어떤 것들은 비용을 지불하고 구입해야 하는 것도 있으며,
+어떤 것은 무료로 기능에 제한 없이 이용할 수 있는 것도 있다.
+여기서는 인터넷상에서 무료로 구할 수 있는 SiteGalaxyUpload에 대하여 설명한다.
+이 컴포넌트는 ASP 기반의 자료실을 제작하는 데도 사용될 수 있다.
+
+FileSystemObject 객체나 ADODB 객체 등을 통해서 파일 업로드를 하는 프로그램을
+직접 구현하기는 쉽지 않다. 왜냐하면, 파일을 서버에 보내기 위해서는 FORM 태그에서
+ENCTYPE = "multipart/form-data" 라는 속성을 넣어 주어야 하는데, 이렇게 되면
+ASP 에서 Request.Form 객체를 사용하지 못하게 된다.
+결국, 파일을 업로드하기 위해서는 파일도 받아들일 수 있고 , 입력 양식 데이터도
+동시에 받아들을 수 있는 기능을 가진 별도의 컴포넌트를 이용해야 한다.
+파일 업로드를 구현해 주는 컴포넌트는 여러 가지가 있지만, 그 중에서 사용하기 쉬운
+SiteGalaxyUpload라는 컴포넌트를 이용해 파일을 서버에 업로드해 보자
+
+2. 설치
+우선 인터넷상에서 파일 SiteGalaxyUpload.zip을 다운로드 받고 압축을 풀면
+SiteGalaxyUpload.dll이 나타날 것이다. 그 다음 SiteGalaxyUpload 컴포넌트를 설치해야
+하는데, 설치는 서버 컴포넌트을 해야 한다.
+
+3. 객체(인스턴스) 생성하기
+
+SiteGalaxyUpload 컴포넌트의 객체 인스턴스는 다음과 같이 생성한다.
+UploadForm은 임의로 지정한 객체 이름이다.
+
+Set UploadForm = Server.CreatrObject("SiteGalaxyUpload.Form")
+
+
+4. 간단한 파일 업로드 페이지 제작
+
+<%
+   Set uploadForm = Server.CreateObject("SiteGalaxyUpload.Form")
+   Set fsp = Server.CreateObject("Scripting.FileSystemObject")
+
+   uploadForm("FILE1".SaveAs("c:\temp\"& fso.GetFileName(uploadForm("FILE1").FilePath))
+   Response.Write("File Upload Success!")
+%>
+
+
+- FilePath는 SiteGalaxyUpload의 속성으로서, 업로드된 파일의 전체 경로(Client 경로)를
+  의미하며 경로의 데이터 타입은 String이다. 이 속성을 다음의 구문과 같이 사용하면 된다.
+
+  Set UploadForm = Server.CreateObject("SiteGalaxyUpload.Form")
+  UploadForm("FILE1"),FilePath
+
+
+이 예에서 UploadForm("FILE1").FilePath는 클라이언트로부터 전송되어 온 값이
+저장된 FILE1의 파일 경로를 의미이다.
+
+
+- SaveAs는 업로드한 파일의 이름을 변경하여 저장하는 SiteGalaxyUpload의
+  메소드이다. SaveAs의 일반형식은 다음과 같다
+
+  object.SaveAs(AbsFullPath,[Boolean])
+
+
+SaveAs() 메소드는 , AbsFullPath 와 [Boolean]로 구성되며 , AbsFullPath는
+서버상의 절대 파일 경로를 의미하고, Boolean은 서버 상에 해당 파일이 있는 경우
+덮어 쓸 것인지를 여부를 지정한다
+
+
+- GetFileName()는 FileSystemObject 객체의 메소드로서 , 지정된 파일경로로부터
+  파일명만 추출하는 명령이다. FileSystemObject의 일반 형식은 다음과 같다
+
+  Set object = Server.CreateObject("Scripting.FileSystemObject")
+  object.GetFileName(TransFullPath)
+
+
+GetFileName() 메소드를 사용하려면 스크립트의 FileSystemObject 객체로부터
+인스턴스를 생성하고, 생성된 인스턴스(객체)를 이용하여 GetFileName() 메소드에
+적용한다. 일반 형식에서 GetFileName(TransFullPath)의 TransFullPath에는
+파일경로가 지정되지만, 여기서는 클라이언트로부터 전송되어 온 파일경로를 의미한다.
+Object.GetFileName(TransFullPath)은 TransFullPath로 부터 순수한 파일명을 추출하라는 명령이다.
+
+
+5. MapPath로 디렉토리를 지정하여 파일 업로드하기
+
+서버 객체의 메소드인 MapPath를 이용하여 가상 디렉토리의 하위 디렉토리에 파일을 올릴 수 있다.
+
+
+<%
+  Set uploadForm = Server.CreateObject("SiteGalaxyUpload.Form")
+  Set fso = Server.CreateObject("Scripting.FileSystemObject")
+
+  strDir = Server.MapPath("./upload_data")
+  uploadForm("FILE1").SaveAs(strDir &"\"& fso.GetFileName(uploadForm("FILE1").FilePath))
+  Response.Write("File Upload Success!")
+%>

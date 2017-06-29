@@ -1,0 +1,11 @@
+cout, cin등을 사용하려면 iostream을 포함하는데,
+
+cout, cin등은 std 클래스에 포함된 멤버함수입니다.
+
+원래 std::cout, std::cin이라고 성씨에 해당하는 std::를 붙여서 불러야 하는 것이죠.
+
+그게 귀찮으니까 그냥 이름만 부르겠다, 그래서 성을 안 붙여도 홍씨인 줄 알고 홍길동이 대답해라 하는 식으로 std::를 안 붙여도 거기 소속된 멤버함수인 줄 알아라라고 선언해주는 것이
+
+using namespace입니다.
+
+using namespace를 적기 싫으면 cin을 사용할 때 std::cin, cout을 사용할 때 std::cout이라고 쓰면 됩니다.

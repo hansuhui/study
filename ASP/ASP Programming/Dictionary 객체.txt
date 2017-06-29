@@ -1,0 +1,55 @@
+
+
+[Dictionary 객체]
+
+Dictionary 객체는 키와 항목 값을 저장해 주는 객체이며, 이 객체를 사용하기 위해서는 
+7장의 Server 객체의 CreateObject 메소드를 사용하여 다음의 일반 형식으로 인스턴스를 
+생성하여야 한다.
+
+Set 인스턴스명 = Server.CreateObject("scripting,Dictionary")
+
+
+[Dictionary 객체의 메소드 및 속성]
+
+-메소드-
+
+Add : 키와 데이터 쌍의 추가
+
+Exisis : 지정된 키의 존재 여부(Boolean 값 반환)
+
+Items : 모든 데이터를 배열로 반환
+
+Keys : 모든 키 값들을 배열로 반환
+
+Remove : 지정된 키와 데이터 쌍을 제거
+
+RemoveAll : 모든 키와 데이터 쌍을 제거
+
+-속성-
+
+CompareMode : 키에 대한 비교 모드
+
+Count : Dictionary에서 키와 데이터 쌍의 수
+
+Item : 지정한 키에 대한 데이터 값을 지정하거나 가져오기
+
+Key : 키 값을 지정하거나 가져오기
+
+
+[Dictionary 예제]
+
+Set MyDictionary = Server.CreateObject("scripting.Dictionary")
+MyDictionary.Add = "번호","316011"
+MyDictionary.Add = "성명","한수희"
+MyDictionary.Add = "소속","동남대학"
+
+For Each i in MyDictionary
+	Response.Write MyDictionary.Itme(i) & "<BR />"
+Next
+
+
+MyDictionary.Count '수량
+MyKey = MyDictionary.Keys
+MyItems = MyDictionary.Items
+MyKey(인덱스)
+MyItems(인덱스)

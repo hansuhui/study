@@ -1,0 +1,134 @@
+[FSO(FlieSystemObject)]
+
+
+
+이 객체는 상당히 유용한 스크립트 객체로, 웹 상에서 파일과 관련된 처리는 이 FOS가거의 처리해 줄 수 있다.
+이 객체를 이용하면 웹 상에서 동적인 디렉토리 (폴더) 및 파일의 생성, 삭제 , 편집 등이 가능하다.
+주의할 것은 이 객체는 서버에서 동작하는 것이란 것을 인식하는 것이다. 즉 언제나 기억해야할 것은 ASP는
+서버 스크립트라는 사실이다. 즉, ASP는 서버를 다루고 서버에서 동작하는 것이지 클라이언트를 제어하는 것이 아니다.
+이 FSO 객체는 다음과 같은 콜렉션을 포함하고 있다.
+
+
+[객체]
+
+Driver : 시스템에 연결된 드라이드 정보를 알수 있는 석성 및 메소드 포함
+
+File : 파일 생성/삭제/이동에 필요한 속성 및 메소드 포함
+
+Folder : 폴더 생성/삭제/이동에 필요한 속성 및 메소드 포함
+
+TextStream : 텍스트 파일을 읽고 쓸 수 있는 기능
+
+
+[콜렉션]
+
+Drives : 실제 또는 논리적으로 연결된 드라이브 목록 제공
+
+Files : 폴더에 포함된 모든 파일 목록 제공
+
+Folders : 폴더에 있는 모든 폴더 목록 제공
+
+
+FSO 객체의 인스턴스는 Server 객체의 CreateObject 메소드로 생성되는데, 이렇게 생성된 FSO 인스턴스를 바탕으로
+다른 객체, Drive 객체 ,파일 객ㅊ체의 콜렉션 및 메소드와 결합하여 파일관련, 폴더 및 드라이브와 관련된 작업을
+할 수 있다. FSO객체 인스턴스는 Drive 객체 , Folder 객체 , File 객체와 연결된 메소드들을 그대로 사용할 수 있다.
+
+
+
+1) 드라이브 얻어오기
+
+Dim ed
+Set ed = Server.CreateObject("Scripting.FileSystemObject")
+Set Cdirive = eb.GetDrive("c:")
+
+
+Cdrive.속성
+
+
+
+[Drive 객체 속성]
+
+Freespace : 드라이브 잔여용량 되돌려 줌
+
+TotlaSize : 드라이브 전체용량을 되돌려 줌
+
+VolumeName : 드라이브 불륨명 세팅, 되돌려줌
+
+ShareName : 드라이브 네트워크 공유 이름을 되볼려줌
+
+SerialNumber : 드스크 불륨 10진 일련번호를 되돌려 줌
+
+RootFolder : 드라이브 루트 폴더를 되돌려 줌
+
+Path : 드라이브 경로명을 되돌려줌
+
+FileSystem : 드라이브 파일 시스템을 되돌려 줌
+
+IsReady : 드라이브 준비여부를 되돌려 줌
+
+
+
+
+[핸들]
+
+핸들(Handle)이란 그래픽 사용자 인터페이스 (GUI)를 제공하고 있는 컴퓨터 환경에서 파일, 원도우, 
+대화상자 등과 같은 자원을 접근하기 위해서 사용되는 숫자로 , 이 숫자는 자원의 이름 혹은 
+ID를 의미하며 핸들을 얻어와 그 자원을 제어할 수 있다.
+
+
+2)텍스트 파일만들기
+
+
+Dim ed,edfile
+Set ed = Server.CreateObject("Scripting.FileSystemObject")
+Set edfile = eb.CreateTextFile("d:\H\test.txt",true,false) 
+
+첫번째 인자 전체 경로
+두번째 인자 덮어쓰기 여부 False인데 같은 파일이 존재하면 에러 방생
+세번째는 유니코드인지 ASCII 인지 결정 True이면 유니코드
+
+
+
+
+[FSO의 CreateTextFile 메소드]
+
+이 FSO의 CreateTextFile 메소드를 이용하여 사버의 폴더에 텍스트 파일을 만들거나 삭제하는 경우에는 우선
+준비해야 하는 작업이 있는데, 원도우즈 NT 계열의 iis웹 서비스의 경우에는 편집할 디렉토리 권한 부분에 접근하는
+사람의 계정에 쓰기 권한을 주어야 한다. 이 부분은 원도우즈 NT에 관한 것임으로 NT에 대한 공부 역시 필요하다는 것을 의미한다.
+
+
+
+
+3) 파일에 쓰기
+
+
+Dim ed,edfile
+Set ed = Server.CreateObject("Scripting.FileSystemObject")
+Set edfile = eb.OpenTextFile("d:\H\test.txt",8) 
+
+edfile.writeList("내용")
+edfile.close
+
+총 4개의 인수
+첫번째 인수 필수 나머는 선택
+첫번째 인수는 전체 경로
+두번째 인수는 지정된 파일을 얼때 읽기 전용인지 읽고 쓰기가 가능한지 지정 1이면 읽지 전용 , 8이면 읽고/쓰기
+세번째 인수는 파일을 여는 경우 지정된 파일이 없으면 새롭게 파일을 만들지 여부 
+네번째 인수는 -1 이면 유니코드 0이면 ASCII -2면 시스템 디폴트 포멧
+
+
+
+4) 파일에서 텍스트 읽어오기
+
+
+Dim ed,edfile
+Set ed = Server.CreateObject("Scripting.FileSystemObject")
+Set edfile = eb.OpenTextFile("d:\H\test.txt",1) 
+
+Do While ebFile.AtEndOfStream <> True 
+Response.write ebFile.readLing & "<br>"
+loop
+
+
+AtEndOfStream은 TextStream의 속성중 하나로, 현재 파일의 위치가 끝이면 True를 돌려줌
+

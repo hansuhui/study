@@ -1,0 +1,220 @@
+웹 어플리케이션 전체를 관리해 주는 객체는 Application 객체이다.
+웹 상에서 어플리케이션은 하나의 가상 디렉토리를 의미한다.
+일반적으로 이를 웹사이트라고 한다. 왜냐 하면 , 가상 디렉토리에 있는
+HTML 파일이네 ASP 파일, 데이터 파일 등이 하나의 어플리케이션으로 함께 동작하기 때문이다.
+
+웹의 시작과 종료, 그리고 접근하는 일반 사용자들(Clients)의 접속 환경을 각각
+기술하고 관리해 주는 특수한 파일은 Global.asa 을 알아보자
+
+[Global.asa]
+
+Global.asa 파일은 aSP 어플리케이션에 속하는 모든 페이지가 사용할 수 있는
+Application 객체 및 Session 객체를 선언하며 이벤트 스크립트를 지정해 주는 
+파일이다. Global.asa는 웹의 시작과 종료, 그리고 접근하는 일반 사용자들(Clients)의
+접속 환경을 각각 기술하고 관리해 주는 특수한 파일이다.
+이 파일은 반드시 존재해야 하는 것은 아니지만 하나의 웹 어플리케이션을 관리하기 위해
+효과적으로 사용된다. Global.asa는 웹사이트별로 하나씩 만들며 사용하지 않아도 상관없다.
+Global.asa 파일을 사용하려면 이 파일은 어플리케이션의 루트 디렉토리에 위치해야 한다.
+루트 디렉토리의 하위 폴더에 존재하는 모든 페이지들은 루트 디렉토리의 Global.asa 파일의
+영향을 받는다. 즉, 가상 디렉토리의 하위 디렉토리에 다른 성격의 웹 어플리케이션이 존재한다면
+영향을 미칠 수 있으므로 서로 다른 디렉토리에 위치해야 한다. 그리고 각 어플리케이션은 하나의
+Global.asa 파일만을 가질 수 있다.
+Application 변수나 객체는 Global.asa 파일에 선언해 준다. 그리고 해당 어플리케이션에
+속하는 페이지는 모두 Application 변수나 객체의 내용을 참조, 갱신할 수 있다.
+
+
+
+
+========================================================================
+
+<Script Language="VBScript" Runat="Server">
+sub Application_OnStart
+  : '이벤트 처리 코드
+end sub
+
+
+sub Session_OnStart
+  : '이벤트 처리 코드
+end sub
+
+sub Session_OnEnd
+  : '이벤트 처리 코드
+end sub
+
+
+sub Application_OnEnd
+  : '이벤트 처리 코드
+end sub
+
+</Script>
+
+
+
+========================================================================
+
+
+Global.asa 파일에서는 Application이나 Session이 시작되거나 종료될 때 처리하고자 하는 내용을 지정해 줄수 있다. 
+
+
+[Global.asa 파일의 이벤트 핸들러]
+
+<Application_OnStart>
+
+해당 ASP 어플리케이션에 속하는 첫 페이지를 최초로 호출할 떄 발생하는
+이벤트로, Global.asa 파일을 생성하거나 편집한 후 웹 서버를 새로 기동시키면
+발생하게 된다. Application_OnStart 프로시저가 완료되고 나면 
+Session_OnStart 이벤트를 위한 프로시져가 실행된다.
+
+
+<Session_OnStart>
+
+사용자가 ASP 어플케이션에 속하는 첫 페이지를 
+새로이 요청할 때마다 발생하는 이벤트이다.
+
+<Session_OnEnd>
+
+사용자의 세션이 종료할 때마다 발생하는 이벤트이다.
+일정한 시간동안 사용자가 페이지에 대한 요청을 발생시키지 않거나
+세션을 취소시키는 경우 현재의 세션이 종료된다.
+
+<Application_OnEnd>
+
+보통 웹 서버가 정지될 때 발생하는 이벤트로, 모든 사용자의
+세션이 종료될 때 발생하게 된다. 이 이벤트를 위한 프로시저에서는 해당
+어플리케이션이 완료된 후 각종 설정 사항들을 해제하거나 필요한 정보를
+다른 텍스트 파일에 기입해 놓는 등의 명령을 기술해 준다.
+
+
+
+[Global.asa의 사용 방법]
+
+- Global.asa 파일에서는 <% ... %> 태그를 사용하는 대신 HTML <Script>
+  태그를 사용하여 이벤트 처리 스크립트를 작성한다.
+
+- Global.asa 파일은 내용을 출력하는 기능을 담당하는 파일이 아니므로 Global.asa
+  파일의 내용을 바로 출력하지는 못한다.
+
+- Global.asa 파일에서는 "#INCLUDE"를 사용하여 다른 파일을 포함할 수 없다.
+
+-Application_OnStart 서브루틴과 Application_OnEnd 서브루틴에서는 Server 객체와
+ Application 객체만을 사용할 수 있다. 그리고 Session_OnEnd 서브루틴에서는
+ Server 객체 , Application 객체 및 Session 객체만을 사용할 수 있으며, 
+ Session_OnStart 서브루틴에서는 모든 내장 객체를 사용할 수 있다.
+
+- Global.asa 파일은 반드시 가상 디렉토리의 루트 디렉토리에 위치시켜야 한다.
+
+[Application 객체 사용]
+
+Application("변수") = 값 또는 수식
+
+출력
+
+Application("변수")
+
+
+[Application 객체]
+
+[컬렉션]
+
+Contents : 스크립트 명령에 의해 Application 객체에 추가된 모든 항목(변수 , 데이터 값)
+	   을 가지며, 하위 속성으로 Count가 있음
+
+StaticObjects : <Object> 태그에 의해 Application 객체에 추가된 모든 객체를 포함
+
+
+[메소드]
+
+Lock : 다른 사용자의 Application 변수의 수정을 방지
+
+Unlock : Application 변수의 수정 방지를 해제
+
+[이벤트]
+
+OnStart : 웹사이트의 어플리케이션이 시작될 떄 발생
+
+OnEnd : 웹사이트이 어플리케이션이 끝날 때생
+
+
+[Contents 컬렉션]
+
+Contents는 Application 객체에 저장되어 있는 변수의 값을 파악해 낼 때 사용하는 컬렉션이다.
+
+Application.Contents(index)
+Application.Contents.Count
+
+
+
+[StaticObjects 컬렉션]
+
+StaticObjects 컬렉션은 Application 객체에 저장된 모든 객체의 값을 가지는 컬렉션이다.
+
+Dim i
+For Each i in Application.StaticObjects
+	Application.StaticObjects(i)
+Next
+
+
+[Lock 메소드와 Unlock 메소드]
+
+Lock은 현재 어플리케이션 변수를 사용하고 있는 사용자가 아닌 다른 사용자가 어플리케이션
+변수의 내용을 갱신하지 못하도록 하는 메소드이다.
+
+그러므로 Lock 메소드를 사용하면 특정 시점에서는 한 사용자만이 어플리케이션 변수를
+변경시킬 수가 있다.
+
+Application.Lock
+
+Unlock은 Lock 속성에 의해 잠겨있는 어플리케이션 변수에 대하여 잠긴을 해제하는 메소드이다.
+
+Application.Unlock
+
+
+Application.Lock
+Application("Test") = Application("Test")+1
+Application.Unlock
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,530 @@
+Script 객체는 서버에서 사용 가능한 VBScript에서 제공하는 객체이다. 
+즉,VBScript.dll에서 제공하는 객체들이며 ASP의 일부분이기도 하다.
+Script 객체에는 Dictionary 객체, 파일시스템을 다루는 FileSystemObject 객체,
+TextStream 객체, 그리고 Err 객체 등이 있다.
+
+
+[Dictionary 객체]
+
+Dictionary 객체는 키와 항목 값을 저장해 주는 객체이며, 이 객체를 사용하기 위해서는 
+7장의 Server 객체의 CreateObject 메소드를 사용하여 다음의 일반 형식으로 인스턴스를 
+생성하여야 한다.
+
+Set 인스턴스명 = Server.CreateObject("scripting,Dictionary")
+
+
+[Dictionary 객체의 메소드 및 속성]
+
+-메소드-
+
+Add : 키와 데이터 쌍의 추가
+
+Exisis : 지정된 키의 존재 여부(Boolean 값 반환)
+
+Items : 모든 데이터를 배열로 반환
+
+Keys : 모든 키 값들을 배열로 반환
+
+Remove : 지정된 키와 데이터 쌍을 제거
+
+RemoveAll : 모든 키와 데이터 쌍을 제거
+
+-속성-
+
+CompareMode : 키에 대한 비교 모드
+
+Count : Dictionary에서 키와 데이터 쌍의 수
+
+Item : 지정한 키에 대한 데이터 값을 지정하거나 가져오기
+
+Key : 키 값을 지정하거나 가져오기
+
+
+[Dictionary 예제]
+
+Set MyDictionary = Server.CreateObject("scripting.Dictionary")
+MyDictionary.Add = "번호","316011"
+MyDictionary.Add = "성명","한수희"
+MyDictionary.Add = "소속","동남대학"
+
+For Each i in MyDictionary
+	Response.Write MyDictionary.Itme(i) & "<BR />"
+Next
+
+
+MyDictionary.Count '수량
+MyKey = MyDictionary.Keys
+MyItems = MyDictionary.Items
+MyKey(인덱스)
+MyItems(인덱스)
+
+====================================================
+[FileSystemObject(FSO) 객체]
+
+FileSystemObject는 서버의 파일 시스템에 대한 접근을 지원해 주는 객체이다.
+그러므로 FileSystemObject 객체를 사용하면 파일, 폴더, 디렉토리 경로 등에 대한
+처리 작업을 수행할 수 있으며 파일 시스템에 대한 정보를 구할 수 있다.
+
+
+-파일 관련 메소드-
+CreateTextFile : 파일을 생성하고 TextStream 객체 반환
+
+OpenTextFile : 지정된 파일을 열고 TextStream 객체 반환
+
+CopyFile :  파일을 한 위치에서 다른 위치로 복사
+
+MoveFile : 파일을 한 위치에서 다른 위치로 이동
+
+DeleteFile : 지정된 파일을 삭제
+
+FileExists : 파일의 존재 여부를 Boolean 값으로 반환
+
+GetFile : 지정된 파일에 대한 정보를 반환
+
+GetFileName : 지정한 파일경에서 파일 이름을 반환
+
+-폴더 관련 메소드-
+
+CreateFolder : 폴더를 생성
+
+CopyFolder : 지정한 폴더를 다른 위치로 복사
+
+MoveFolder : 지정한 폴더를 다른 위치로 이동
+
+DeleteFolder : 지정한 폴더를 삭제
+
+FolderExists : 폴더의 존재 여부를 Boolean 값으로 반환
+
+GetFolder : 지정한 폴더에 대한 정보를 반환
+
+-드라이브 관련 메소드-
+
+GetDriver : 지정한 경로의 드라이브에 대한 정보를 반환
+
+GetDriverName : 지정한 경로의 드라이브 이름을 문자열로 반환
+
+
+
+[CopyFile 메소드]
+
+CopyFile은 하나 혹은 복수개의 파일을 한 곳에서 다른 곳으로 복사하는 메소드 이다.
+
+object.CopyFile source, destination , overwrite
+
+
+CopyFile 메소드의 일반 형식에서 object는 FileSystemObject의 인스턴스를,
+source는 복사할 파일을 , desination은 복사하고자 하는 위치를 지정하며 , 
+overwrite는 복사하고자 하는 source 파일이 destination에 있을 경우 overwrite 할 것인지
+여부를 True 또는 False로 지정한다. overwrite는 생략할 수 있으며 디폴트는 True이다.
+
+Set fso = Server.CreateObject("scripting.FileSystemObject")
+fos.CopyFile "복사파일","대상위치및 파일", 덮어쓰기 여부
+
+
+[CopyFolder 메소드]
+
+CopyFolder는 하나 또는 복수 폴더를 한 곳에서 다른 곳이로 복사하는 메소드이다.
+
+object.CreateFolder source , destination , ovrwrite
+
+의미는 CopyFile 메소드와 동일하다.
+
+
+[CreateFolder 메소드]
+
+CreateFolder는 폴더를 생성하는 메소드이다. 이미 폴더가 존재하면 오류를 발생시킨다.
+
+object.CreateFolder(foldername)
+
+CreateFolder 메소드의 일반 형식에서 foldername은 생성하고자 하는 폴더의 이름이다.
+
+
+<%
+ Dim fso,newFolder
+ newFolder = "c:\H\Test"
+ set fso = Server.CreateObject("scripting.FileSystemObject")
+ fso.CreateFolder(newFolder)
+ Set fso = Nothing
+%>
+
+
+
+[FolderExists 메소드]
+
+이미 존재하고 있는 폴더에 대하여 CreateFolder 메소드를 실행시키면 오류가 발생한다.
+이와 같은 경우 특정 폴더가 존재하고 있는지를 알아내는 메소드(FolderExists 메소드)가
+있다면 오류 없이 매끄러운 코드를 작성할 수가 있을 것이다.
+FolderExists는 특정 폴더가 존재하면 True를, 그렇지 않을 경우에는 False를 반환해 주는
+메소드이다.
+
+object.FolderExists(folderName)
+
+
+<%
+  Dim fso
+  Set fso = Server.CreateObject("Scripting.FileSystemObject")
+  If fso.FolderExists("c:\asp\Test") = True then
+    '폴더가 존재함
+  Else
+   fso.CreateFolder("c:\asp\Test")
+  End If
+  Set fso = Nothing
+%>
+
+
+[CreateTextFile 메소드]
+
+CreateTextFile은 텍스 파일을 생성한 후에 TextStream 객체를 반환하는 메소드이다.
+한편, TextStream 객체는 파일에 대한 읽기와 쓰기 작업을 지원해 주는 객체이다.
+
+object.CreateTextFile(filename , overwrite , unicode)
+
+CreateTextFile 메소드의 일반 형식에서 filename은 생성하고 자하는 파일명을 나타내며,
+overwrite 생성하고자 하는 파일이 이미 존재하는 경우에 overwrite할 것인지 여부를 나타낸다.
+Ture는 overwrite를 False는 overwrite 하지 않음을 의미하며 디폴트는 Flase이다.
+unicode 는 unicode 파일을 생성할 것인지 또는 ASCII 코드를 생성할 것인지를
+구분하는 인수로 True는 Unicode 파일을 , False는 ASCII 파일을 의미한다. 디폴트 False
+
+
+<%
+  Dim fso,newFile
+  newFile = "경로(파일명)"
+  Set fso = Server.CreateObject("Scripting.FileSystemObject")
+  Set newFIle = fso.CreateTextFile(newFIle)
+  Set fso = Nothing
+%>
+
+
+[FileExists 메소드]
+
+FileExists는 해당 파일이 존재하면 True를 존재하지 않으면 False를 반환하는 메소드이다.
+
+object.FileExists(filename)
+
+
+[DeleteFolder 메소드]
+
+DeleteFolder 메소드는 해당 폴더와 폴더의 내용을 삭제하는 메소드이다.
+
+object.DeleteFolder(foldername, force)
+
+DeleteFolder 메소드의 일반 형식에서 foldeName은 삭제하고자 하는 폴더의 이름이며,
+force는 Read-only 속성을 가지는 폴더를 삭제할 것인지 여부를 지정해 주는 옵션으로
+false일 경우에는 Read-only 폴더를 삭제하지 않으며 True일 경우에는 Read_only 속성을 가지는
+폴더라도 삭제한다. 디폴트는 False이다.
+
+
+<%
+  Dim fso.delFolder
+  delFolder = "삭제 경로"
+  Set fso = Server.CreateObject("scripting.FileSystemObject")
+ If fso.FolderExists(delFolder) = True then
+  fso.DeleteFolder(delFolder)
+ Else
+ '존재하지 않음
+ End If
+ set fso = Nothing
+%>
+
+
+
+[DeleteFile 메소드]
+
+DeleteFile 메소드는 특정 파일을 삭제하는 메소드이다.
+
+object.DeleteFile(filename,force)
+
+
+
+[OpenTextFile 메소드]
+
+OpenTextFile은 텍스트 파일을 오픈한 후에 이 파일에 접근할 때 사용하는
+TextStream 객체를 반환하는 메소드이다.
+
+object.OpenTextFile(filename,iomode,create,format)
+
+OpenTextFile 메소드의 일반 형식에서 filename은 열고자 하는 파일명을 나타내며,
+iomoce는 파일의 개방 모드를 나타낸는 옵션으로 iomode에서 지정할 수 있는 값은
+
+값 / 모드 / 의미
+1 / ForReading / 읽기 모드로 파일을 개방(쓰기 불가)
+2 / ForWriting / 쓰기 모드로 파일을 개방(읽기 불가)
+8 / ForAppending / 파일을 개방한 후에 끝에서부터 쓰기 기능(추가)
+
+또 OpenTextFile 메소드의 일반 형식에서 create는 filename에서 명시하고 있는 파일이
+존재하지 않을 경우 새로운 파일을 생성할 것인지 지정해 주는 옵션으로서
+True를 지정하면 새로운 파일을 생성하며 False를 지정하면 새로운 파일을 생성하지 않는다.
+디폴트는 False 이다.
+또한 format은 파일의 포맷을 지정하는 옵션으로 format에서 지정할 수 있는 값은 다음과 같다
+
+값 / 모드 / 의미
+
+0 / TristateFalse / ASCII 형식으로  파일의 포맷(디폴트)
+
+-1 / TristatTrie / Unicode 형식으로 파일을 포맷
+
+-2 / TrustateUseDefault / 시스템 디폴트 형식으로 파일을 포맷
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "경로"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 'Read-Only로 개방
+ Response.Write(fhandel.ReadAll) 'ReadAll : 전체 읽기
+ Set fso = Nothing
+ SEt fhandel = Nothing
+%>
+
+
+[TextStream 객체]
+
+TextStream은 파일의 내용을 사용할 수 있도록 지원해 주는 객체이다. 앞에서 살펴 본
+FileSystemObject 객체의 CreateTextFile 메소드와 OpenTextFile 메소드와 OpenTextFile은
+TextStream 객체를 결과로 반환하는데, 이러한 TextStream 객체를 사용하면 텍스트 파일의 내용을 
+읽거나 쓰기 작업을 수행할 수 있다.
+
+
+-메소드-
+
+Close : 열린 파일 닫기
+
+Read(i) : 파일에서 문자 단위 (i만큼)로 읽기
+
+ReadAll : 파일 전체 내용 읽기
+
+ReadLine : 문자열로 한 라인씩 읽기
+
+Skip(i) : 파일에서 (i만큼) 문자 건너뛰기
+
+SkipLine : 파일을 읽을 때 한 라인을 건더뛰기
+
+Write : 파일에 문자열 입력
+
+WriteLine : 파일에 문자열과 라인 구분 문자를 입력
+
+WriteBlankLink(i) : 파일에 빈 라인(라인 구분 문자)을 i번 입력
+
+-속성-
+
+AtEndOfLine : 파일의 끝 라인 지정 여부(Boolean 값 반환)
+
+AtEndOfStream : 파일의 끝 지정 여부 (Boolean 값 반환)
+
+Column : 파일에서 현재 문서의 열 번호를 반환
+
+Line : 파일에서 현재 문서의 라인 번호를 반환, 1부터 시작
+
+
+[Close 메소드]
+
+Close 메소드의 일반 형식에서 object는 TextStream 객체 이름을 나타낸다.
+
+<%
+ fname = "텍스트파일"
+ set fso = Server.CreateObject("scripting.FileSystemObject")
+ set fhandle = fso.OpenTextFile(fname,1)
+ Response.Write(fhandle.ReadAll)
+ fhandle.Close
+%>
+
+[Read 메소드]
+
+
+Read는 TextStream 파일로부터 일정한 수의 문자를 읽은 후에 이를 결과로 반환해주는
+메소드이다.
+
+object.Read(characters)
+
+Read 메소드의 일반 형식에서 characters는 파일로부터 읽고자 하는 문자의 수를 말한다.
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 'Read-Only로 개방
+ Response.Write(fhandle.Read(5))
+ fhandle.Close
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+[ReadAll 메소드]
+
+ReadAll 메소드는 TextStream 파일 전체를 읽은 다음 이를 결과로 반환하는 메소드이다.
+
+object.ReadAll
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 'Read-Only로 개방
+ Response.Write(fhandle.ReadAll)
+ fhandle.Close
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+[ReadLine 메소드]
+
+ReadLine 메소드는 TextStream 파일의 한라인을 읽은 후에 이를 결과로 반환하는
+메소드이다.
+
+object.ReadLine
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 'Read-Only로 개방
+ Response.Write(fhandle.ReadLine)
+ fhandle.Close
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+[Skip 메소드]
+
+Skip 메소드늕 TextStream 파일을 읽을 때 일정한 수의 문자를 건너뛰는 메소드이다.
+
+object.Skip(characters-건너뛸 수량)
+
+
+
+[SkipLine 메소드]
+
+SkipLine은 TextStream 파일을 읽을 때 한 라인을 건너뛰는 메소드이다.
+
+Object.SkipLing
+
+
+[Write 메소드]
+
+Write는 TextTream 파일에 주어진 텍스트(문자열)를 기록하는 메소드이다.
+
+object.Write("내용")
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForWriting) 
+ fhandle.Write "입력 문자"
+ fhandle.Close
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 
+ Response.Write(fhandle.ReadAll)
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+[WriteLine 메소드]
+
+WriteLine은 주어진 텍스트(문자열)를 TextStream 파일에 기록한 후에 줄 바꿈 문자를 추가
+해주는 메소드이다.
+
+object.WriteLine
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForAppending)'추가 모드  
+ fhandle.WriteLine "입력 문자"
+ fhandle.Close
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 
+ Response.Write(fhandle.ReadAll)
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+
+[WriteBlankLines 메소드]
+
+WriteBlankLines는 TextStream 파일에 일정한 수의 줄 바꿈 문자를 기록하는 메소드이다.
+
+object.WriteBlankLines(newlines)
+
+WriteBlankLines 메소드의 일반 형식에서 newlines는 
+추가하고자 하는 줄 바꿈 문자의 수를 의미한다.
+
+
+
+<%
+ Dim fso, fname , fhandle
+ Const ForReading = 1
+ Const ForWriting = 2
+ Const ForAppending = 8
+ fname = "텍스트파일"
+ Set fso = Server.CreateObject("scripting.FileSystemObject")
+ Set fhandle = fso.OpenTextFile(fname,ForAppending)'추가 모드  
+ fhandle.WriteLineBlankLines(5)
+ fhandle.WriteLine "입력 문자"
+ fhandle.Close
+ Set fhandle = fso.OpenTextFile(fname,ForReading) 
+ Response.Write(fhandle.ReadAll)
+ Set fso = Nothing
+ Set fhandel = Nothing
+%>
+
+
+
+[AtEndOfLine 속성]
+
+AtEndOfLine은 파일 포인터가 TextStream 파일의 라인 끝에 있을 경우에는
+True를 , 그렇지 않은 경우에는 False를 반환하는 속성이다.
+
+object.AtEndOfLine
+
+
+[AtEndOfStream 속성]
+
+AnEndOfStream 속성은 파일 포인터가 TextStream 파일의 끝에 있을 경우네는
+True를 , 그렇지 않을 경우네는 False를 반환하는 속성이다.
+
+object.AnEndOfStream
+
+
+[Column 속성]
+
+Column은 파일에서 현재의 칼럼 번호를 반환하는 속성이다.
+최초의 칼럼 번호는 1이다.
+
+object.Column
+
+
+[Line 속성]
+
+Line 속성은 파일에서 현재의 라인 번호를 반환하는 속성이다.
+최초의 라인 번호는 1이다.
+
+object.Line
+
+

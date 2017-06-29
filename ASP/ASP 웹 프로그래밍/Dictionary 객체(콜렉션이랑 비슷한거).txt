@@ -1,0 +1,61 @@
+[Dictionary 객체]
+
+VB 스크립트는 콜렉션과 유사한 저장구조를 갖는 객체를 제공하고 있는데 그것이 바로 Dictionary 객체이다.
+Dictionary 객체는 2차원 배열과 같은 구조를 갖고 있으며, 키와 항목으로 된 쌍을 저장하는 객체이다.
+키는 개별 항목을 검색하는데 이용되며 대개 배열이 아닌 모든 정수 또는 문자열로 되어있다.
+이와 같이 데이터를 키-항목의 쌍으로 저장하여 필요에 따라 해당 정보를 얻어오는 방법은 콜렉션에서 사용하는
+방법과 같다. 이 Dictionart 객체는 키 값과 그에 해당하는 항목으로 구성되어 있으며 
+콜렉션 역할을 하는 하나의 객체를 생성할 수 있다.
+
+
+[속성]
+
+CompareMode / 문자열로 된 키를 비교하는 모드를 설정 또는 되돌려 줌
+Count / 콜렉션 또는 Dictionary 객체의 항목 수를 되돌려 줌
+Item / 지정한 키의 아이템을 설정 또는되돌려 줌
+Key / Dictionary 객체에 키를 설정
+
+
+[메소드]
+
+Add / 키-항목 쌍을 Dictionary 객체에 추가
+Exists / 지정된 키가 존재하면 참, 아니면 거짓을 되돌려 줌
+Items / Dictionary 객체에 존재하는 모든 항목을 배열로 되돌려줌
+Keys / Dictionary 객체에 있는 모든 키를 포함하는 배열을 되돌려 줌
+Remove / Dictionary 객체에 지정된 키에 대한 키-항목 쌍을 제거함 
+Removeall / Dictionary 객체에 존재하는 모든 키-항목 쌍을 제거함
+
+
+
+[예제]
+
+Dim ebDict = Server.CreateObject("Scripting.Dictionary")
+
+ebDict.Add "eb01","테스트1"
+ebDict.Add "eb02","테스트2"
+ebDict.Add "eb03","테스트3"
+ebDict.Add "eb04","테스트4"
+ebDict.Add "eb05","테스트5"
+
+
+하나만 가져올때 
+
+eb.Dict.Item("eb03")
+
+전부 가져올때
+
+For each listin ebDict
+   ebDict.Item(list)
+Next
+
+배열로 가져오기
+
+Dim arrkey,arrItems
+   arrkey = ebDict.Keys
+   arrItems= ebDict.Items
+
+For i = 0 to ebDict.count-1
+  arrKey(i) &"="& arrItems(i)
+Next
+
+

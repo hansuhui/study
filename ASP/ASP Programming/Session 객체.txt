@@ -1,0 +1,152 @@
+Session 객체는 사용자마다의 환경을 관리하는 객체로서, 접근하는 사용자마다
+Session 객체를 생성하여 사용자 정보를 관리, 즉 세션에 관련된 
+설정 사항을 변경하거나 세션에 관련된 정보를 저장한다.
+어플리케이션에 속하는 모든 페이지는 이러한 Session 객체의 변수를 사용할 수 있다.
+세션이 종료되면 Session 객체는 소멸된다. Session 객체는 서버와 클라이언트간의
+연결 상태를 유지하는데 사용한 쿠키 기법을 대신해 주는 역할을 한다.
+
+[세션이 시작되는 시점]
+
+- 새로운 사용자가 .asp 파일을 요청하고 , Global.asa 파일에 
+  Session_OnStart 프로시져를 포함하고 있을 때
+
+- 사용자가 Session 변수에 값을 저장시킬때
+
+- 사용자가 .asp 파일을 요청하고 Global.asa 파일이 <OBJECT> 태그를 사용하여
+  세션 영역의 객체에 대한 인스턴스를 생성할 때
+
+그리고 사용자가 ASP 어플리케이션을 일정한 시간 동안 요청하지 않으면
+세션이 종료된다. "일정한 시간"의 디폴트는 20분인데, Timeout 속성을 
+사용하면 이 수치를 조정할 수 있다.
+
+
+[컬렉션, 메소드 , 이벤트]
+
+[컬렉션]
+
+Contents : 스크립트 명령에 의해 Session 객체에 추가된 모든 항목(변수, 데이터값)
+	   을 가지며 하위 속성으로 Count 가 있음
+
+StaticObjects : <Object> 태그에 의해 Session 객체에 추가된 모든 객체를 포함
+
+
+[속성] 
+
+CodePage : 언어적 차이에 따른 코드 페이지 설정
+
+LCID : 지역이나 언어적 특성을 고려한 Local ID를 지정
+
+SessionID : 각 사용자에 대한 Session의 ID 값을 반환함
+
+TimeOut : 현재 Session의 TimeOut 값을 설정 (Default : 20분)
+
+
+[메소드]
+
+Abandon : Session을 종료시키고 모든 자원을 반환
+
+Remove : Session 객체의 변수 제거
+
+RemoveAll : Session 객체의 모든 변수 제거
+
+
+[이벤트]
+
+
+OnStart : 사용자가 웹 어플리케이션을 처음 방문할 때 실행
+
+OnEnd : Abandon 또는 Timeout 시에 호출되며 웹사이트의 어플리케이션이 끝날때 발생
+
+
+[TimeOut 속성]
+
+TimeOut은 디폴트 세션 종료 시간을 변경하는 속성이다.
+
+Session.TimeOut = 10 '세션 종료 시간을 10분으로 설정
+
+
+[Abandon 메소드]
+
+Abandon은 세션을 종료시키는 메소드인데, 이 메소드가 호출되지 않으면 TimeOut 속성이
+지정하고 있는 시간이 경과할 때 세션이 종료된다.
+
+Session.Abandon
+
+언제 세션을 종료시킬 것인지를 정확하게 예측하기란 쉬운 일이 아니다.
+세션을 너무 오래 지속시키면 서버의 자원을 소모시킬 수 있으며, 
+너무 일찍 종료시키면 세션이 다시 시작될 때 해제한 모든 자원을 다시 확보해야 하는
+부담이 뒤따른다. 그러므로 가급적 세션 변수를 적게 사용하고 세션 변수에 저장하는
+데이터 양을 줄이는 것이 바람직하다.
+
+
+[Contents 컬렉션]
+
+Contents는 Session 객체의 모든 변수들을 가지고 있는 컬렉션이다.
+Session 객체의 모든 변수를 검출하려면 다음과 같이 기술한다.
+
+For Each i in Session.Contents
+    Session.Contents(i)
+Next 
+
+
+[Remove 메소드]
+
+Remove 메소드를 사용하면 Session 객체의 변수를 제거할 수가 있다.
+모든 세션 변수를 제거 싶으면 RemoveAll 메소드를 사용하면 된다.
+
+Session.Contents.Remove("변수명")
+Session.Contents.RemoveAll()
+
+[Count 속성]
+
+Count 는 Contents 컬렉션에 저장되어 있는 항목의 수를 알려주는 속성이다.
+
+Session.Contents.Count
+
+
+[StaticObject 컬렉션]
+
+StaticObject은 Session 객체에 저장되어 있는 모든 객체의 값을 가지는 컬렉션이다.
+
+
+For Each i in Session.StaticObjects
+    Session.StaticObjects(i)
+Next 
+
+
+[SessionID 속성]
+
+SessionID는 연결된 세션에 관한 ID를 가지는 속성이다.
+이 ID는 해당 세션에 대하여 서버가 만들어 주는 고유한 식별자이며 Long 서브타입을 가진다.
+
+Session.SessionID
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+선언(declareation)은 코드에 사용되는 '어떤 대상'의 이름과 타입을 컴파일러에 알려 주는 것입니다.
+하지만 구체적인 세부 사항은 선언에 들어 있지 않습니다. 
+
+[선언 예제]
+
+extern int x;  // 객체 선언
+
+std::size_t numDigtis(int number); 함수 선언
+
+std::size_t  /  std 네임스페이스에 멤버인 size_t
+
+class Widget;  // 클래스 선언
+
+template<typename T> //템플린 선언
+class GrapgNode;      
+
+[선언 예제 끝]
+

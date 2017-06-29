@@ -1,0 +1,39 @@
+함수 / 의미
+
+Asc(string) / 첫 문자의 ANSI 코드를 반환
+
+Chr(ANSI Code) / ANSO 코드를 String 으로 반환
+
+InStr(str1,str2) / str2내에서의 str1의 최초 위치를 반환
+
+Lcase(String) / 소문자로 된 String을 반환
+
+Left(Str,Len) /  Str의 좌측에서부터 Len개의 문자를 반환
+
+Len(String) / String의 길이를 반환
+
+Ltrim(String) / String 앞의 공백을 제거
+
+Mid(Str, Start , Len) / Str의 Start 위치에서부터 Len 개의 문자 반환
+
+Replace(Str,Str1,Str2) / Str에서 Str1을 Str2로 교체
+
+Right(Str , Len) / Str의 우축에서부터 Len개의 문자를 반환
+
+Rtrim(String) / String 뒤의 공백을 제거
+
+Split(Str,Char) / Str을 Char를 기준으로 나눔(분리)
+
+Str(Number) / Number의 스트링 표현을 반환
+
+StrComp(Str1,Str2)  / Str1과 Str2를 비교
+
+String(Len,Char) / Len개의 Char로 스트링을 생성
+
+StrReverse(String) / 거꾸로 된 문자열을 반환
+
+Trim(String) / String 앞과 뒤의 공배을 제거
+
+Ucase(String) / 대문자로 된 String 반환
+
+

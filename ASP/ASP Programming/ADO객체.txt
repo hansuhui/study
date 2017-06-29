@@ -1,0 +1,361 @@
+[ADO 객체]
+
+마이크로소프트의 웹 서버에서 데이터베이스를 이용하려면 ADO(ActiveX Data Objects)객체가
+필요하다. ADO는 마이크로소프트의 ActiveX 컴포넌트로서 데이터베이스의 데이트를 사용할 수
+있도록 지원하는 인터페이스이다. ADO는 마이크로소프트의 웹 서버(IIS,PWS)를 설치하면
+자동으로 설치된다.
+
+-과정-
+
+1.ADO Connection 객체를 생성한다.
+2.데이터베이스를 Open(데이터베이스 연결) 한다.
+3. ADO Recordset 객체를 생성한다.
+4. 질의어를 통해서 레코드셋을 Open 한다.
+5. 레코드셋으로부터 필요한 데이터를 처리한다.
+6. Recordset 객체를 Close 시킨다.
+7. Connection 객체를 Cloes 시킨다.
+
+
+[Connection 객체]
+
+Connection 객체는 데이터베이스와의 접속을 확립하기 위해 사용하는 객체이다.
+ASP 에서 데이터베이스와 연결하기 위해서는 Connection 객체가 필요하다
+
+Set 인스턴스명 = Server.CreateObject("ADODB.Connection")
+
+-Open 메소드-
+
+Open 메소드는 데이터 소스와의 연결을 해주는 메소드이다. Conneciotn 객체를
+사용하여 Open하는 방법은 DSN을 사용하지 않는 방법과 DSN을 사용하는 
+방법(OBDC 사용)이 있다,.
+DSN을 사용하지 않고서도 데이터베이스 "C:/aspdb/univ.mdb"와 연결하고 
+Open 하는 방법은 다음과 같다.
+
+
+<%
+ Set Conn = Server.CreateObject("ADODB.Connection")
+ Conn.Open = "PROVIDER=Microsoft.Jet.OLEDB.4.0;DATA SOURCE=C:/aspdb/univ.mdb"
+%>
+
+또는
+
+<%
+ Set Conn = Server.CreateObject("ADODB.Connection")
+ Conn.Provider = "PROVIDER=Microsoft.Jet.OLEDB.4.0"
+ Conn.Open "C:/aspdb/univ.mdb"
+%>
+
+이와같이 DSN을 사용하지 않고 데이터베이스를 연결하고 Open하기 위해서는
+MS-Access 데이터베이스 드라이버(Provider)를 지정한 다음에 접속하지고 
+하는 데이터베이스의 실제 경로를 명시해 주면 된다.
+
+ODBC를 사용하여 데이터베이스에 접속하는법
+
+<%
+ Set Con = Server.CreateObject("ADODB.Connection")
+ Con.Open "DNS네임"
+%>
+
+
+<%
+ Set Con = Server.CreateObject("ADODB.Connection")
+ Con.Open "Data Source=DSN네임;User ID = 아이디;Password = 암호;"
+%>
+
+<%
+ Set Con = Server.CreateObject("ADODB.Connection")
+ Con.ConnectionString "Data Source=DSN네임;User ID = 아이디;Password = 암호;"
+ Con.Open
+%>
+
+
+-Close 메소드-
+
+Close 메소드는 현재의 데이터베이스와의 연결을 종료시키는 메소드이다.
+
+
+<%
+ Set Con = Server.CreateObject("ADODB.Connection")
+ Con.Open "DNS네임"
+ .....
+ Con.Close
+ set Con = Nothing
+%>
+
+
+-Execute 메소드-
+
+Execute는 질의어, SQL 문장 , 프로시저 등을 실행시켜 주는 메소드이다.
+
+Connection.Execute(text,recoreds , options)
+
+Execute 메소드의 일반 형식에서 text는 SQL 명령문을 , records는 명령문에 영향을 받는
+레코드 수를 그리고 options는 명령어의 유형을 말한다. records 와 options는 생량 할 수 있다.
+
+명령문의 내용은 명령어의 유형의 따라 달라진다. 이 명령어의 유형은 ADO상수로써
+adovbs.inc 파일에 명시되어 있다. 상수를 직접 사용할 경우에는 adovbs.inc파일을 
+include시켜 주어야 한다.
+
+명령어 상수
+
+상수 / 값 / 의미 
+adCmdUnknown / &H0008 / 명령어의 유형을 모름(지정되지 않음)
+			ADO 객체가 DSN을 통하여 명령어의 유형을 알아냄(디폴트)
+
+adComText / &H0001 / 현재의 라인에서 직접 입력하는 텍스트 명령
+
+adCmdTable / &H0002 / 테이블의 모든 레코드에 대하여 명령어를 적용
+		      레코드셋의 형태로 결과가 반환됨
+
+adCmdStoredProc / &H0004 / 데이터 소스내의 저장 프로시저를 명령문으로 사용
+
+
+
+
+-Properties 컬렉션-
+
+Propertise는 Connection 객체의 각종 속성을 가지는 컬렉션이다.
+
+
+-Errors 컬렉션-
+
+Errors는 Connection 객체에서 발생하는 오류 내용을 가지는 컬렉션이다.
+
+속성 / 의미
+
+Number / 오류번호
+NativeError / 오류번호에 대한 설명
+Description / 오류에 대한 설명
+Source / 오류를 발생시키는 객체
+SQLState / SQL 오류 번호
+
+
+[Command 객체]
+
+Command 객체는 ActiveConnection이라는 속성을 사용하여 데이터 소스와 연결하여
+질의어를 실행하고 그 결과를 Recordset 객체로 반환 받는 질의어 또는결과의 반환을 필요로
+하지 않는 질의어를 수행할 때 사용하는 객체이다.
+
+ActiveConnection 속성에서 Connection 객체를 사용할 수도 있다. 또한 연결에
+필요한 정보를 문자열 형태로 직접 지정해 줄 수도 잇다. 연결 문자열을 직접 사용하면
+데이터베이스와의 연결이 계속 유지되는 것이 아니어서 작업의 일괄적 처리에 유리한 반면
+여러 작업을 수행할 경우에는 Connection 객체를 생성하 다음 이를 활용하는 것이 보다 유리하다.
+
+<%
+ Set Con = Server.CreateObject("ADODB.Connection")
+ Con.Open "DNS네입"
+ Set MyCommand = Server.CreateObject("ADOBD.Command")
+ MyCommand.ActiveConnection = Con
+ MyCommand.CommandType = &H0001 'abCmdText
+ MyCommand.CommandText = "질의문"
+ MyCommand.Parameters.Refresh
+ MyCommand("@변수") = 2 
+ MyCommand.Prepared = True
+ Set myRs =  MyCommand.Execute
+%>
+
+
+[Recordset 객체]
+
+Recordset 객체는 데이터베이스에 대한 질의어의 결과 레코드를 가지는 객체이다.
+
+-메소드-
+Open : Recordset의 커서 열기
+
+AddNew : Recordset에 새로운 레코드 생성
+
+Delete : 열린 Recordset의 현재 레코드 삭제
+
+Update : 현재 Recordset의 내용 갱신
+
+Move n : n 레코드로 위치 이동
+
+MoveFirst : 처음 레코드로 포인터 이동
+
+MoveNext : 다음 레코드로 포인터 이동
+
+MovePrevious : 이전 레코드로 포인터 이동
+
+MoveLast : 마지막 레코드포 포인터 이동
+
+Close : 열린 Recordset 객체 닫기
+
+
+-속성-
+
+AbsolutePage : 현재 페이지가 위치한 절대 페이지 번호
+
+AbsolutePosition : 현재 레코드의 절대 위치
+
+ActiveConnection : Recordset이 있는 Conncection 객체
+
+BOF : 현재 레코드 위치가 첫 번째 이면 True 반환
+
+EOF : 현재 레코드 위치가 마지막이면 True 반환
+
+CursorType : Recordset에서 레코드를 찾아가는 형태 설정
+
+Filter : Recordset 내의 일정한 레코드를 반환
+
+LockType : 레코드를 편집하는 동안 잠금 형태 설정
+
+pageCount : Recordset이 가지고 있는 총 페이지 수
+
+PageSize : 하나의 페이지가 갖는 레코드 수 설정
+
+RecordCount : Recordset의 총 레코드 수
+
+Source : Recordset 객체에 있는 데이터 원본
+
+
+-Recordset 객체 생성하기-
+
+데이터 원본에서 필요한 데이텀나을 가져와 Recordset 객체를 생성하고 이용하는
+방법에는 여러 가지가 있다. 그 중에서 3가지 방법에 대해서 소개를 하면, 하나는
+Connection 객체를 이용하여 레코드셋을 생성하는 방법이 있고, 다른 하나는
+Recordset 객체를 이용하여 레코드셋을 생성하고 Open 메소드를 이용하는 방법, 그리고
+Recordset 객체를 이용하여 레코드셋을 설정하고 Source 및 ActiveConnection 속성을
+이용하는 방법이 있다.
+
+1.Connection 객체와 execute 메소드에 의해 레코드셋 생성하기
+
+set objDb = Server.CreateObject("ADODB.Connection")
+objDb.Open "DNS네임"
+strSQL = "질의어"
+set Rs = objDb.Execute(strSQL)
+
+
+2.Recordset 객체와 open 메소드를 이용하는 방법
+
+Set Rs = SErver.CreateObject("ADODB.Recordset")
+strSQL = "질의어"
+Rs.Open = strSQL , "DSN=DNS네임",3,2,1
+
+3.Recordset 객체와 Source 및 ActiveConneciton 속성 이용하는 방법
+
+Set Rs = SErver.CreateObject("ADODB.Recordset")
+Rs.Source = "질의어"
+Rs.ActiveConnection = "DNS=DNS네임",3,2,1
+Rs.Open
+
+Recordset 객체 생성 방법 중 세 번째 방법을 살펴보자. 
+우선 Recordset 객체를 이용하여 인스턴스를 생성한다.
+그리고 Source 속성에 SQL 명령문을 지정하고, 그 다음에 
+ActiveConnection 속성을 사용하여 데이토ㅓ 소스 이름을 지정한다.
+이때 커서타입, 잠금타입, 명령옵션과 함께 지정하는데, 여기서는 숫자로 표기하고
+각각 3,2,1로 지정하였다. 3은 커저타입으로서 adOpenStatic을 의미하고
+,2는 잠금타입으로서 adLockPessmistic을 의미하고 
+, 1은 명령옵션으로서 adCmdText을 의미한다.
+
+
+-Open 메소드-
+
+Open은 일정한 조건을 만족시키는 테이블, 질의어 또는 저장된 또 다른 레코드셋으로부터
+레코드를 Open하는 메소드이다.
+
+recordsetobject.Open Source,ActiveConnection , cursortype, locktype, Options
+
+
+-커저 타입(cursoType)의 유형-
+
+타입이름 / 값 / 의미
+
+adOpenForwardOnly / 0 / 레코드 변경이 불가은하고 , 커서를 앞으로만 이동시킬 수 있다
+			(MoveNext메소드). Recordset의 각 레코드를 순차적으로 한번만
+			참조할 때 뛰어난 성능을 보임(디폴트)
+
+adOpenKeyset / 1 / 레코드 변경이 가능하나 다른 사용자에게는 변경된 내용이 재 동기화되기
+		   전까지는 레코드에 접근할 수 없으며, 모든 Move메소드를 지원한다.
+
+adOpenDynamic / 2 / 레코드 변경이 가능하며, 오픈되어 있는 동안 다른 사용자의  의해
+		    변경된 사항이 즉시 반영되며 , 모든 Move 메소드를 지원한다.
+
+adOpenStatic / 3/ 고정된 내용을 복사하는 것으로 레코드 변경이 불가능하며.
+		  Recordset 이 열려있는 동안 다른 사용자가 반영한 사항을 볼 수 없으며
+		  모든 Move 메소드를 지원한다.
+
+
+
+-잠김 타입(LockType)의 유형-
+
+타입이름 / 값 / 의미
+
+adLockReadOnly / 1 / Read-only , 레코드의 내용을 변경할 수 없음
+
+adLoackPessimistic / 2 / 임의의 사용자가 레코드를 수정하는 시점부터 다른 사용자는
+			 해당 레코드를 변경할 수 없음
+			 레코드 단위로 Lock이 설정됨
+
+adLockOptimistic / 3/ 임의의 사용자가 레코드 수정 작업을 완료시키기 위해 Update
+		      메소드를 호출하는 시점부터 Lock을 설정함
+		      레코드 단위로 Lock이 설정됨
+
+adLockBatchOptimistic / 4 / 일괄 갱신 모드에서 사용
+			    복수 레코드의 갱신 순간에 복수 레코드에 대한 Lock을 설정
+
+
+-Close 메소드-
+
+Close는 현재의 Recordset를 닫는 역할을 하는 메소드이다.
+
+recordsetobj.Close
+
+
+-Recordset 객체의 레코드 이동-
+
+Recordset 객체에서 레코드의 이동은 다양항 메소드들을 이용해서 수행할 수 있다.
+이에 관련된 메소드는 Move , MoveFirst , MoveLast , MoveProvious , MoveNext 등
+이있다.
+Move는 레코드셋의 전,후의 레코드로 이동할 수 있는 메소드이다. 이 메소드를
+사용하여, 데이터베이스 레코드를 순차적으로 철력할 수 있고, 임의의 레코드를 전후로
+건너 뛴 후 레코드를 출력할 수도 있다.
+
+Recordsetobj.mode 정수
+
+
+-Filter 속성-
+
+Filter 속성은 특정의 조건에 따라 레코드 셋 내의 일정한 레코드들을 반환하는 속성이다.
+
+Recordsetobj.Filter "조건"
+
+Recordsetobj.Filter "Seq > 0"
+
+
+-AddNew 메소드-
+
+AddNew는 레코드셋 객체에 새로운 레코드를 생성해 추가하는 메소드이다.
+AddNew 메소드만 사용하여 레코드셋에 추가한 레코드를 데이터베이스 안에 완전히
+입력하기 위해서는 Update 메소드를 수행하여야 된다.
+AddNew 메소드를 수행하면 새로운 레코드가 현재의 레코드 포인트가 된다.
+
+Recordsetobj.AddNew
+Recordsetobj("필드명") = 추가할 필드의 값
+Recordsetobj.Update
+
+
+-Delete 메소드-
+
+Delete는 하나 또는 일련의 레코드를 삭제하는 메소드이다.
+
+Recordsetobj.Delete
+Recordsetobj.Update
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

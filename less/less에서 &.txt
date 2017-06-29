@@ -1,0 +1,16 @@
+
+&.클래스명 {css코드}
+&:hover{css 코드}
+&:focus{css 코드}
+
+사용 예제
+
+.button 
+{
+css 코드 
+&:hover{css 코드}
+&:focus{css 코드}
+&:big{font-size : 22px;}
+}
+
+사용시 class="button big" 으로 중첩 적용 가능

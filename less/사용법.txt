@@ -1,0 +1,12 @@
+
+less 파일을 만들어서 먼저 link를 달고
+<link href="../less/style.less" rel="stylesheet/less" type="text/css" />
+그다음 js파일을 부른다
+
+<script src="../js/less.js"></script>
+
+
+참조 사이트
+
+http://lesscss.org/#download-options
+

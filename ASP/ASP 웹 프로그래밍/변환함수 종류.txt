@@ -1,0 +1,20 @@
+Asc : 문자열에서 첫 번째 문자에 대한 ANSI 코드번호를 되돌려줌
+
+CBool : Boolean 형식의 인자값을 되돌려줌
+
+Byte : Byte 형식의 인자값을 되돌려 줌
+
+CDate : CDate 형식의 인자값을 되돌려 줌
+
+CDbl : Double 형식의 인자값을 되돌려 줌
+
+Cint : 정수 형식의 인자값을 되돌려 줌
+
+Clng : Long 형식의 인자값을 되돌려 줌
+
+CSng : Single 형식의 인자값을 되돌려 줌
+
+Cstr : String 형식의 인자값을 되돌려 줌
+
+Sgn : 숫자의 부호를 나타내는 정수를 되돌려 줌
+

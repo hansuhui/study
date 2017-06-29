@@ -1,0 +1,76 @@
+Connection 객체
+
+1.Open 메소드
+
+Connection 객체는 ODBC를 사용하여 데이터베이스와의 연결을 시도하며, 유연하고 안정적인 연결을 보장해 준다.
+
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.Open("DSN=[DSN_Name], Uid=[User-ID], Pwd=[Password]")
+
+SQL 서버 또는 Oracle 등의 데이터베이스를 이용하는 경우에는 반드시 사용자 계정 Uid와 Password를 기입해야
+로그인할 수 있다. 그러나 MS-Access의 경우에는 무시해도 무방하다.
+
+
+[예제]
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.ConnetingString "DSN=[DSN_Name], Uid=[User-ID], Pwd=[Password]"
+DB.Open
+
+
+2. Close
+
+DB.Close
+Set DB = Nothing
+
+
+3.Execute 메소드 (SQL문 실행)
+
+Command 객체의 Execute 메소드는 연결된 데이터에 대하여 SQL문, 저장 프로시저의 명령을
+실행시크는 데 다음의 몇 가지 예이다.
+
+1. 실행
+
+Set DB = Server.CreateObject("ADODB.Connection")
+DB.Open("DSN=[DSN_Name], Uid=[User-ID], Pwd=[Password]")
+DB.Execute "쿼리"
+
+
+
+[속성]
+
+ConnectionsString : 데이터소스에 연결하는데 필요한 정보 설정
+
+Attributes: 기존 트랜젝션이 끝났을때 새 트탠잭션 제어
+
+CommandTimeOut : 명령을 실행한 후 대기시간 설정
+
+ConnectionTimeOut : 연결을 시도한 후 기다리는 시간 설정
+
+
+[메소드]
+
+Open : 데이터 소스에 연결
+
+Close : 데이터소스의 연결 종료
+
+Execute : SQL 문 또는 프로시저 실행
+
+BeginTrans : 새 트랜젝션 시작
+
+CommitTrans : 수정내용 저장후 트랜잭션 종료
+RollbackTrans : 수정내용 취소후 트랜잭션 종료
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

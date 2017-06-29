@@ -1,0 +1,50 @@
+[Content Linking 컴포넌트]
+
+하나의 웹사이트는 많은 웹 페이지들로 구성되고 서로 관련을 맺고 연결되어 있다.
+Content Linking 컴포넌트는 사용자들에게 이러한 페이지들을 정리된 리스트 형태로
+제공하고자 할 때 사용된다. 새로 삽입되는 페이지나 삭제되는 페이지가 페이지가 
+빈번할 때 , HTML 문서를 직접 수정하지 않고 Linker List 파일(텍스트 파일)을 열어
+수정작업을 하면 되기 때문에 웹 페이지 관리 측면에서 매우 유용하게 사용할 수 있다,
+Content Linking 컴포넌트는 NextLink.dll에 구현되어 있으며, 이것을 사용하기
+위에서는 객체 인스턴스를 먼저 생성하고 해당 메소드를 적용한다.
+
+Set objLnk  = Server.CreateObject("MSWC.NextLink")
+
+-Content Linking 컴포넌트 메소드-
+
+GetListCount(텍스트파일) : 텍스 파일에 있는 리스트 수
+
+GetNthDescription(텍스트파일, 인덱스) : 파일에서 원하는 URL의 설명문
+
+GetNthURL(텍스트파일, 인덱스) : 파일에서 원하는 URL
+
+GetNextDescription(텍스트파일) : 파일에서 다음 페이지의 설명문
+
+GetNextURL(텍스트파일) : 파일에서 다음 페이지의 URL
+
+GetPreviousDescription(텍스트파일) : 파일에서 이즌 페이지의 설명문
+
+GetPreviousURL(텍스트파일) : 파일에서 이전 페이지의 URL
+
+
+Content Linking 컴포넌트를 다루는 ASP 프로그램에서 사용할 Linker List 파일(텍스트 파일)을
+작성할 떄 유의할 점은 다음과 같다.
+
+URL 과 URL 설명 사이에는 Tab키로 구분한다. 
+
+[텍스트 파일 설정]
+
+/asp/asp파일	설명문
+/asp/asp파일	설명문
+/asp/asp파일	설명문
+사이는 탭키로 구분
+
+
+[예제]
+<% 
+ Set objLnk = Server.CreateObject("MSWC.NextLink")
+ contLNK = objLnk.GetListCount("txt파일")
+
+  objLnk.GetNthURL("txt 파일",인텍스)
+  objLnk.GetNthDescription("txt 파일",인텍스)
+%>

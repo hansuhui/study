@@ -1,0 +1,42 @@
+[Command 객체]
+
+Command 객체는 ActiveConnection 속성에 Connection 객체의 인스턴스 또는 문자열을 설정하여
+데이터베이스에 연결한다. 또한, Command 객체는 SQL문을 실행하거나 인수를 넘겨주는 기능을 제공한다. 
+연결 문자열을 이용하는 경우, 연결처리가 끝나면 연결이 끊어지기 때문에 한번에 모든 명령을 처리하는 것이 효율적이다.
+
+
+
+1) Connection 객체 이용
+
+Set DB = Server.CreateObject("ADODB.Connection")
+Set DB1 = Server.CreateObject("ADODB.Command")
+DB1.ActiveConnection = DB
+
+2) DSN 문자열 이용
+
+Set DB1 = Server.CreateObject("ADODB.Command")
+DB1.ActiveConnection = "DB"
+
+
+
+[속성]
+
+ActiveConnection : Command로 DB 연결시 사용되는 속성
+
+CommandText : 실행할 명령어 텍스트 , 저장 프로시저를 설정
+
+CommandType : CommandText에 설정한 명령어의 형태를 설정
+
+CommandTimeOut : 명령을 실행한 후 대기하는 시간 설정
+
+Prepared : 실행될 문장을 미리 컴파일 할 것인지를 설정
+
+
+[메소드]
+
+CreateParameter : Parameter 콜렉션에서 새로운 Parameter 객체 생성
+
+Execute : SQL 문장 또는 Stored 프로시저를 실행
+
+
+

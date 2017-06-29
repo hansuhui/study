@@ -1,0 +1,84 @@
+@CHARSET "EUC-KR";
+/*@import "reset.css";  */
+
+@import url(http://fonts.googleapis.com/css?family=Montez);
+
+body {
+	background: #eeece7;
+}
+
+h1 {
+	font: 52px/1 'Montez';
+	color: #a4834d;
+}
+
+h1+p { /*인접 형제 선택자 (+)를 사용하여 <h1>요소 바로 뒤에 나오는 p요소를 찾는다*/
+	margin-bottm: 3.5em; /*아래쪽 방향으로 외부 여백을 글자 크기(세로) 3.5배 만큼 설정합니다. */
+}
+
+#page-wrap {
+	width: 960px;
+	margin: 30px auto;
+	/* 바깥쪽 여백을 상하로 30px 좌오로 auto로 양분합니다. 양분하면 가운데 정렬됩니다 */
+	padding: 3em; /*안쪽 공간은 글자 크기의 3배 정도로 설정합니다. 글자 크기에 따라 상대적으로 변경 */
+	background: #fff;
+	box-shadow: 0px 0px 2px #62615f inset; /* 박스에 그림자를 안쪽 방향으로 설정합니다 */
+	-webkit-box-shadow: 0px 0px 2px #62615f inset;
+	/* 박스에 그림자를 안쪽 방향으로 설정합니다 */
+	-moz-box-shadow: 0px 0px 2px #62615f inset;
+	/* 박스에 그림자를 안쪽 방향으로 설정합니다 */
+	border-radius: 20px; /* 둥근 테두리를 20px로 설정합니다 */
+	-webkit-border-radius: 20px; /* 둥근 테두리를 20px로 설정합니다 */
+	-moz-border-radius: 20px; /* 둥근 테두리를 20px로 설정합니다 */
+	-khtml-border-radius: 20px; /* 둥근 테두리를 20px로 설정합니다 */
+}
+
+#navigation {
+	padding: 3px;
+}
+ul
+{
+	list-style:none;
+	
+}
+
+#navigation li {
+	float: left;
+	border-right: 1px solid #eee;
+}
+
+#navigation li:last-child {
+	border: 0;
+}
+
+#navigation li a {
+	border: 0;
+	padding: 10px;
+	font: 14px/1 Verdana;
+	color: #a49e96;
+}
+
+.no-js #navigation li a:hover
+,.no-js #navigation li a:focus
+,.no-js #navigation li.focus a
+,.lava  {
+	border-radius: 6px;
+	background-image:linear-gradient(-90deg,#887963,#0b0a09); /*css3 그레이디언트 효과를 적용합니다 */
+	box-shadow:0px 0px 2px #69635a;
+}
+
+
+
+/* ///////////////////////////////////////// 
+	=Global Classes
+///////////////////////////////////////// */
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+	}
+	.ie6 .clearfix { height: 1px; } /* IE6 */ 
+	.ie7 .clearfix { min-height: 1px; } /* IE7 */
+
+
